@@ -1,1209 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bombay Food Junkies | SEED Program</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bombay Food Junkies | SEED Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+html { scroll-behavior: smooth; }
 
-        :root {
-            --green-deep: #1a4d1e;
-            --green-mid: #2e7d32;
-            --green-bright: #4caf50;
-            --green-light: #e8f5e9;
-            --green-pale: #f1f8f2;
-            --gold: #c9a84c;
-            --gold-light: #f5e9c8;
-            --text-dark: #1a1a1a;
-            --text-mid: #444;
-            --text-muted: #777;
-            --white: #ffffff;
-            --border: #d8e8da;
-        }
+:root {
+    --green-deep: #1a4d1e;
+    --green-mid: #2e7d32;
+    --green-bright: #4caf50;
+    --green-light: #e8f5e9;
+    --green-pale: #f1f8f2;
+    --gold: #c9a84c;
+    --gold-light: #f5e9c8;
+    --text-dark: #1a1a1a;
+    --text-mid: #444;
+    --text-muted: #777;
+    --white: #ffffff;
+    --border: #d8e8da;
+}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text-dark);
-            background: #f9faf9;
-            line-height: 1.7;
-        }
+body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark);
+    background: linear-gradient(to bottom, #f9faf9, #f1f8f2);
+    line-height: 1.7;
+}
 
-        /* ── HERO ── */
-        .hero {
-            background: linear-gradient(160deg, #0d2b10 0%, #1a4d1e 50%, #2e7d32 100%);
-            color: white;
-            text-align: center;
-            padding: 110px 20px 90px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1920&q=60') center/cover;
-            opacity: 0.08;
-        }
-        .hero-inner { position: relative; }
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 6vw, 5rem);
-            font-weight: 900;
-            letter-spacing: 1px;
-            line-height: 1.1;
-        }
-        .hero .sub {
-            font-size: 1rem;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            color: #a5d6a7;
-            margin-bottom: 16px;
-            font-weight: 500;
-        }
-        .hero p {
-            font-size: 1.15rem;
-            max-width: 680px;
-            margin: 22px auto 0;
-            color: #c8e6c9;
-            font-weight: 300;
-        }
-        .gold-bar { width: 60px; height: 3px; background: var(--gold); margin: 20px auto 0; border-radius: 2px; }
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green-bright), var(--gold));
+    z-index: 9999;
+}
 
-        /* ── LAYOUT ── */
-        .section { padding: 80px 20px; }
-        .section.alt { background: var(--green-pale); }
-        .section.dark { background: var(--green-deep); color: white; }
-        .wrap { max-width: 1140px; margin: 0 auto; }
+.hero {
+    background: linear-gradient(160deg, #0d2b10 0%, #1a4d1e 50%, #2e7d32 100%);
+    color: white;
+    text-align: center;
+    padding: 110px 20px 90px;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1920&q=60') center/cover;
+    opacity: 0.08;
+}
+.hero-inner { position: relative; }
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 1.1;
+}
+.hero .sub {
+    font-size: 1rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #a5d6a7;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+.hero p {
+    font-size: 1.15rem;
+    max-width: 680px;
+    margin: 22px auto 0;
+    color: #c8e6c9;
+    font-weight: 300;
+}
+.gold-bar { width: 60px; height: 3px; background: var(--gold); margin: 20px auto 0; border-radius: 2px; }
 
-        .section-label {
-            font-size: 0.78rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--green-bright);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        .section-label.light { color: #a5d6a7; }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.9rem, 4vw, 2.8rem);
-            font-weight: 700;
-            margin-bottom: 14px;
-            color: var(--green-deep);
-        }
-        .section-title.light { color: white; }
-        .section-desc {
-            color: var(--text-muted);
-            max-width: 650px;
-            font-size: 1.05rem;
-        }
-        .section-head { margin-bottom: 50px; }
+.section { padding: 80px 20px; }
+.section.alt { background: var(--green-pale); }
+.section.dark { background: var(--green-deep); color: white; }
+.wrap { max-width: 1140px; margin: 0 auto; }
 
-        /* ── SEED CARDS ── */
-        .seed-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 24px;
-        }
-        .seed-card {
-            background: white;
-            border-radius: 12px;
-            padding: 32px 26px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            border-top: 4px solid var(--green-bright);
-            transition: transform .2s, box-shadow .2s;
-        }
-        .seed-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
-        .seed-letter {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--green-mid);
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-        .seed-card h3 { font-size: 1.1rem; color: var(--green-deep); margin-bottom: 8px; }
-        .seed-card p { font-size: 0.93rem; color: var(--text-muted); }
+.section-label {
+    font-size: 0.78rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.section-label.light { color: #a5d6a7; }
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--green-deep);
+}
+.section-title.light { color: white; }
+.section-desc {
+    color: var(--text-muted);
+    max-width: 650px;
+    font-size: 1.05rem;
+}
+.section-head { margin-bottom: 50px; }
 
-        /* ── SUSTAINABILITY PRACTICES ── */
-        .practices-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-            gap: 22px;
-        }
-        .practice-card {
-            background: white;
-            border-radius: 10px;
-            padding: 26px;
-            border-left: 5px solid var(--green-mid);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        .practice-card h4 { font-size: 1.1rem; color: var(--green-deep); margin-bottom: 6px; }
-        .practice-card > p { font-size: 0.93rem; color: var(--text-mid); margin-bottom: 14px; }
+.section-divider {
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, rgba(76,175,80,0.15), transparent);
+}
 
-        .ratings-row {
-            display: flex; gap: 20px; margin-bottom: 14px; flex-wrap: wrap;
-        }
-        .rating-pill {
-            display: flex; flex-direction: column; align-items: center;
-            background: var(--green-pale); border-radius: 8px; padding: 8px 16px; flex: 1; min-width: 90px;
-        }
-        .rating-pill span:first-child { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
-        .stars { color: var(--gold); font-size: 1rem; letter-spacing: 1px; }
-        .stars.cost { color: #e57373; }
+.seed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 24px;
+}
+.seed-card {
+    background: white;
+    border-radius: 12px;
+    padding: 32px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-top: 4px solid var(--green-bright);
+    transition: transform .2s, box-shadow .2s;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+.seed-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+.seed-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--green-mid);
+    line-height: 1;
+    margin-bottom: 10px;
+}
 
-        details { margin-top: 4px; }
-        summary {
-            cursor: pointer;
-            font-size: 0.88rem;
-            color: var(--green-mid);
-            font-weight: 600;
-            list-style: none;
-            padding: 6px 0;
-            border-top: 1px solid var(--border);
-        }
-        summary::-webkit-details-marker { display: none; }
-        summary::before { content: '▶ '; font-size: 0.7rem; }
-        details[open] summary::before { content: '▼ '; }
-        .dropdown-content {
-            font-size: 0.9rem;
-            color: var(--text-mid);
-            padding: 10px 0 4px;
-            line-height: 1.6;
-        }
-        .expert-contact {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-top: 10px;
-            font-style: italic;
-        }
+.btn-primary {
+    background: var(--green-deep);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.btn-primary::after {
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.2),transparent);
+    opacity:0;
+    transition:opacity .3s;
+}
+.btn-primary:hover::after { opacity:1; }
 
-        /* Ranking legend */
-        .ranking-legend {
-            display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px;
-            padding: 14px 20px; background: white; border-radius: 8px;
-            box-shadow: 0 1px 6px rgba(0,0,0,0.06); align-items: center;
-        }
-        .ranking-legend span { font-size: 0.82rem; color: var(--text-muted); }
-        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 500; }
+.animate { opacity: 0; transform: translateY(32px); transition: all 0.6s ease; }
+.animate.visible { opacity: 1; transform: none; }
 
-        /* ── ETHICAL SOURCING ── */
-        .ethics-intro {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px;
-        }
-        @media(max-width:700px){ .ethics-intro { grid-template-columns: 1fr; } }
-        .ethics-box {
-            background: white; border-radius: 10px; padding: 28px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-        }
-        .ethics-box h4 { color: var(--green-deep); font-size: 1.1rem; margin-bottom: 12px; }
-        .ethics-box p, .ethics-box li { font-size: 0.93rem; color: var(--text-mid); margin-bottom: 8px; }
-        .ethics-box ul { padding-left: 18px; }
+.stagger-children > * { opacity:0; transform:translateY(28px); transition:all .5s ease; }
+.stagger-children.visible > * { opacity:1; transform:none; }
 
-        .brands-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 40px;
-        }
-        .brand-card {
-            background: white; border-radius: 10px; padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-top: 3px solid var(--gold);
-        }
-        .brand-card .brand-badge {
-            display: inline-block; background: var(--gold-light); color: #7a5c0a;
-            font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-            padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
-        }
-        .brand-card h4 { color: var(--green-deep); font-size: 1rem; margin-bottom: 6px; }
-        .brand-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
-        .cost-premium {
-            display: flex; align-items: center; gap: 10px; margin-top: 12px;
-            background: #fff8e1; border-radius: 6px; padding: 8px 12px;
-            font-size: 0.85rem; font-weight: 500; color: #7a5c0a;
-        }
-        .cost-premium::before { content: '$'; font-size: 1.1rem; font-weight: 700; }
+.modal-overlay {
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    z-index:1000;
+    align-items:center;
+    justify-content:center;
+}
+.modal-overlay.active { display:flex; }
 
-        .cost-comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 30px; background: white;
-            border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-        }
-        .cost-comparison-table th {
-            background: var(--green-deep); color: white; padding: 14px 18px;
-            font-size: 0.88rem; text-align: left; font-weight: 600;
-        }
-        .cost-comparison-table td {
-            padding: 13px 18px; font-size: 0.9rem; border-bottom: 1px solid var(--border);
-            color: var(--text-mid);
-        }
-        .cost-comparison-table tr:last-child td { border-bottom: none; }
-        .cost-comparison-table tr:nth-child(even) td { background: var(--green-pale); }
-        .premium-tag { color: #c0392b; font-weight: 600; }
-        .worth-tag { color: var(--green-mid); font-weight: 600; }
+.modal {
+    background:white;
+    border-radius:14px;
+    padding:40px;
+    max-width:500px;
+    width:100%;
+    transform:scale(0.95);
+    opacity:0;
+    transition:all .2s ease;
+}
+.modal-overlay.active .modal {
+    transform:scale(1);
+    opacity:1;
+}
 
-        /* ── EMPLOYEE WELLNESS ── */
-        .wellness-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px;
-        }
-        .wellness-card {
-            background: white; border-radius: 10px; padding: 26px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--green-mid);
-        }
-        .wellness-card h4 { color: var(--green-deep); font-size: 1.05rem; margin-bottom: 8px; }
-        .wellness-card p { font-size: 0.92rem; color: var(--text-mid); }
+.timeline-phase a { display:block; text-decoration:none; cursor:pointer; }
+.timeline-phase:hover .phase-header { transform:scale(1.03); transition:.2s; }
 
-        /* ── ENGAGEMENT ── */
-        .family-banner {
-            background: linear-gradient(135deg, var(--green-deep), #2e7d32);
-            border-radius: 16px; padding: 50px 40px; color: white;
-            display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center;
-            margin-bottom: 50px;
-        }
-        @media(max-width:600px){ .family-banner { grid-template-columns: 1fr; } }
-        .family-banner h3 {
-            font-family: 'Playfair Display', serif; font-size: 1.9rem; margin-bottom: 12px;
-        }
-        .family-banner p { font-size: 0.97rem; color: #c8e6c9; line-height: 1.7; max-width: 560px; }
-        .family-initials {
-            width: 110px; height: 110px; border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            border: 3px solid rgba(255,255,255,0.4);
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem; font-weight: 700; color: white;
-            flex-shrink: 0;
-        }
-
-        .events-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 40px;
-        }
-        .event-card {
-            background: white; border-radius: 10px; padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            border-top: 4px solid var(--green-bright);
-        }
-        .event-icon { font-size: 1.8rem; margin-bottom: 10px; }
-        .event-card h4 { color: var(--green-deep); font-size: 1rem; margin-bottom: 6px; }
-        .event-card p { font-size: 0.88rem; color: var(--text-muted); }
-
-        .signup-block {
-            background: var(--gold-light); border: 2px solid var(--gold); border-radius: 12px;
-            padding: 36px 40px; text-align: center;
-        }
-        .signup-block h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--green-deep); margin-bottom: 10px; }
-        .signup-block p { color: var(--text-muted); margin-bottom: 22px; font-size: 0.95rem; }
-        .btn-primary {
-            background: var(--green-deep); color: white; border: none;
-            padding: 14px 36px; border-radius: 8px; font-size: 1rem;
-            font-family: 'DM Sans', sans-serif; font-weight: 600;
-            cursor: pointer; transition: background .2s, transform .15s;
-            text-decoration: none; display: inline-block;
-        }
-        .btn-primary:hover { background: var(--green-mid); transform: translateY(-2px); }
-
-        /* ── FEEDBACK (DEVELOPMENT) ── */
-        .feedback-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-        }
-        @media(max-width:600px){ .feedback-grid { grid-template-columns: 1fr; } }
-        .feedback-box {
-            background: white; border-radius: 14px; padding: 36px 30px; text-align: center;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-            border-bottom: 5px solid var(--green-mid);
-            cursor: pointer; transition: transform .2s, box-shadow .2s;
-        }
-        .feedback-box:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
-        .feedback-box.gold-border { border-bottom-color: var(--gold); }
-        .feedback-icon { font-size: 3rem; margin-bottom: 16px; }
-        .feedback-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--green-deep); margin-bottom: 10px; }
-        .feedback-box p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 22px; line-height: 1.65; }
-        .dev-badge {
-            display: inline-block; background: #fff3e0; color: #e65100;
-            font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-            padding: 4px 12px; border-radius: 20px; margin-bottom: 18px;
-        }
-        .btn-outline {
-            display: inline-block; border: 2px solid var(--green-mid); color: var(--green-mid);
-            padding: 10px 26px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;
-            transition: background .15s, color .15s; text-decoration: none;
-        }
-        .btn-outline:hover { background: var(--green-mid); color: white; }
-        .btn-outline.gold { border-color: var(--gold); color: #7a5c0a; }
-        .btn-outline.gold:hover { background: var(--gold); color: white; }
-
-        /* MODAL */
-        .modal-overlay {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-            z-index: 1000; align-items: center; justify-content: center; padding: 20px;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal {
-            background: white; border-radius: 14px; padding: 40px 36px;
-            max-width: 520px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-            position: relative;
-        }
-        .modal h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--green-deep); margin-bottom: 8px; }
-        .modal p { font-size: 0.93rem; color: var(--text-muted); margin-bottom: 22px; }
-        .modal label { font-size: 0.88rem; font-weight: 600; color: var(--text-mid); display: block; margin-bottom: 5px; margin-top: 14px; }
-        .modal input, .modal textarea, .modal select {
-            width: 100%; padding: 10px 14px; border: 1px solid var(--border);
-            border-radius: 7px; font-family: 'DM Sans', sans-serif; font-size: 0.93rem;
-            color: var(--text-dark); outline: none; transition: border-color .15s;
-        }
-        .modal input:focus, .modal textarea:focus { border-color: var(--green-mid); }
-        .modal textarea { height: 90px; resize: vertical; }
-        .modal-actions { display: flex; gap: 12px; margin-top: 22px; }
-        .modal-close {
-            position: absolute; top: 14px; right: 18px; background: none; border: none;
-            font-size: 1.4rem; cursor: pointer; color: var(--text-muted);
-        }
-        .modal-close:hover { color: var(--text-dark); }
-
-        /* ── TIMELINE ── */
-        .visual-timeline {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            gap: 10px; padding: 10px 0 20px; overflow-x: auto;
-        }
-        .timeline-phase { flex: 1; position: relative; text-align: center; min-width: 200px; }
-        .phase-header {
-            background: var(--green-deep); color: white; padding: 14px 10px;
-            border-radius: 6px; font-weight: 600; margin-bottom: 14px;
-            font-size: 0.85rem; position: relative;
-        }
-        .phase-header::after {
-            content: ''; position: absolute; right: -14px; top: 50%;
-            transform: translateY(-50%);
-            border-top: 24px solid transparent; border-bottom: 24px solid transparent;
-            border-left: 14px solid var(--green-deep); z-index: 1;
-        }
-        .timeline-phase:last-child .phase-header::after { display: none; }
-        .p2 .phase-header { background: #388E3C; } .p2 .phase-header::after { border-left-color: #388E3C; }
-        .p3 .phase-header { background: #43A047; } .p3 .phase-header::after { border-left-color: #43A047; }
-        .p4 .phase-header { background: #4CAF50; }
-        .phase-content {
-            background: white; padding: 16px; border: 1px solid var(--border);
-            border-radius: 6px; font-size: 0.85rem; box-shadow: 0 2px 4px rgba(0,0,0,0.04); text-align: left;
-        }
-        .phase-content ul { padding-left: 16px; margin: 8px 0; }
-        .phase-content li { margin-bottom: 5px; }
-
-        /* ── FINANCIAL ADVANTAGE ── */
-        .financial-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; margin-top: 36px;
-        }
-        .fin-card {
-            background: rgba(255,255,255,0.1); border-radius: 10px; padding: 26px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .fin-card h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #a5d6a7; margin-bottom: 10px; }
-        .fin-card .big { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: white; }
-        .fin-card p { font-size: 0.88rem; color: #c8e6c9; margin-top: 6px; }
-
-        /* ── KPI ── */
-        .kpi-grid {
-            display: flex; flex-wrap: wrap; gap: 22px; justify-content: space-between; margin-top: 36px;
-        }
-        .kpi-box {
-            flex: 1; min-width: 280px; background: white; padding: 28px;
-            border-radius: 10px; text-align: center; border-bottom: 5px solid var(--green-mid);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-        }
-        .kpi-box h4 { color: var(--green-deep); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
-        .kpi-compare { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 10px; }
-        .kpi-avg { color: var(--text-muted); font-size: 1.1rem; }
-        .kpi-arrow { color: var(--green-bright); font-size: 1.3rem; }
-        .kpi-value { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; color: var(--text-dark); }
-        .kpi-desc { font-size: 0.88rem; color: var(--text-muted); }
-
-        /* ── UNIQUE ACTIONS ── */
-        .unique-section {
-            background: white; border: 2px dashed var(--green-bright);
-            border-radius: 14px; padding: 50px 40px;
-        }
-        .unique-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px;
-        }
-        .unique-card {
-            background: var(--green-light); border-radius: 10px; padding: 24px;
-            border-left: 5px solid var(--green-bright);
-        }
-        .unique-card h4 { color: var(--green-deep); font-size: 1rem; margin-bottom: 8px; }
-        .unique-card p { font-size: 0.9rem; color: var(--text-muted); }
-
-        /* ── FOOTER ── */
-        footer {
-            background: var(--green-deep); color: #a5d6a7;
-            text-align: center; padding: 32px 20px;
-            font-size: 0.9rem;
-        }
-        footer strong { color: white; }
-
-        /* ── DIVIDER ── */
-        .section-divider {
-            width: 100%; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--green-bright), transparent);
-            opacity: 0.3;
-        }
-
-        @media(max-width:600px){
-            .family-banner { padding: 30px 24px; }
-            .signup-block { padding: 28px 20px; }
-            .unique-section { padding: 30px 20px; }
-        }
-
-        /* ── SCROLL ANIMATIONS ── */
-        .animate {
-            opacity: 0;
-            transform: translateY(32px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .animate.fade-left {
-            transform: translateX(-32px);
-        }
-        .animate.fade-right {
-            transform: translateX(32px);
-        }
-        .animate.scale-in {
-            transform: scale(0.93) translateY(16px);
-        }
-        .animate.visible {
-            opacity: 1;
-            transform: none;
-        }
-        /* stagger children inside a grid */
-        .stagger-children > * {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .stagger-children.visible > *:nth-child(1) { transition-delay: 0s; }
-        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.1s; }
-        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.2s; }
-        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.3s; }
-        .stagger-children.visible > *:nth-child(5) { transition-delay: 0.4s; }
-        .stagger-children.visible > *:nth-child(6) { transition-delay: 0.5s; }
-        .stagger-children.visible > * {
-            opacity: 1;
-            transform: none;
-        }
-        /* hero entrance */
-        .hero-inner .sub   { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s; }
-        .hero-inner h1     { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s; }
-        .hero-inner .gold-bar { opacity: 0; transform: scaleX(0); transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s; transform-origin: center; }
-        .hero-inner p      { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease 0.7s, transform 0.7s ease 0.7s; }
-        .hero-loaded .hero-inner .sub,
-        .hero-loaded .hero-inner h1,
-        .hero-loaded .hero-inner p  { opacity: 1; transform: none; }
-        .hero-loaded .hero-inner .gold-bar { opacity: 1; transform: scaleX(1); }
-    </style>
+</style>
 </head>
 <body>
 
-<!-- ── HERO ── -->
+<div id="progress-bar"></div>
+
 <header class="hero">
-    <div class="hero-inner">
-        <div class="sub">Bombay Food Junkies</div>
-        <h1>SEED Program</h1>
-        <div class="gold-bar"></div>
-        <p>A structured, credible, and replicable sustainability model for restaurants in the greater St. Louis area.</p>
-    </div>
+<div class="hero-inner">
+<div class="sub">Bombay Food Junkies</div>
+<h1>SEED Program</h1>
+<div class="gold-bar"></div>
+<p>Turning small restaurants into sustainability leaders—without increasing costs.</p>
+</div>
 </header>
 
-<!-- ── 1. SEED FRAMEWORK ── -->
 <section class="section">
-    <div class="wrap">
-        <div class="section-head animate">
-            <div class="section-label">Our Foundation</div>
-            <h2 class="section-title">The SEED Framework</h2>
-            <p class="section-desc">Rooted in the mission of Ahimsa—non-violence and compassion for all living beings—our framework promotes environmental, ethical, and economic responsibility.</p>
-        </div>
-        <div class="seed-grid stagger-children">
-            <div class="seed-card"><div class="seed-letter">S</div><h3>Sustainability</h3><p>Improve environmental and economic responsibility by updating infrastructure and implementing waste tracking.</p></div>
-            <div class="seed-card"><div class="seed-letter">E</div><h3>Ethics</h3><p>Commit to ethical sourcing and clear guidelines for employee treatment and fair labor.</p></div>
-            <div class="seed-card"><div class="seed-letter">E</div><h3>Engagement</h3><p>Build community presence through active outreach, workshops, and local partnerships.</p></div>
-            <div class="seed-card"><div class="seed-letter">D</div><h3>Development</h3><p>Commit to continuous improvement through feedback loops and initiative adaptation.</p></div>
-        </div>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ── 2. SUSTAINABILITY PRACTICES ── -->
-<section class="section alt">
-    <div class="wrap">
-        <div class="section-head animate">
-            <div class="section-label">S — Sustainability</div>
-            <h2 class="section-title">Core Sustainability Requirements</h2>
-            <p class="section-desc">Each requirement is rated by <strong>Effectiveness</strong> (impact on sustainability goals) and <strong>Cost</strong> (implementation expense) to help businesses prioritize.</p>
-        </div>
-
-        <div class="ranking-legend animate">
-            <span>Rating Key:</span>
-            <div class="legend-item"><span style="color:var(--gold)">★★★★★</span> = Highest</div>
-            <div class="legend-item"><span style="color:var(--gold)">★★★</span> = Moderate</div>
-            <div class="legend-item"><span style="color:var(--gold)">★</span> = Lowest</div>
-            <div class="legend-item" style="margin-left:10px;padding-left:10px;border-left:1px solid var(--border)"><span style="color:#e57373">★ Cost</span> = Low spend &nbsp;|&nbsp; <span style="color:#e57373">★★★★★ Cost</span> = High spend</div>
-        </div>
-
-        <div class="practices-grid stagger-children">
-
-            <!-- Compost -->
-            <div class="practice-card">
-                <h4>♻️ 100% Compost Rate</h4>
-                <p>Diverting all organic waste and food scraps to compost.</p>
-                <div class="ratings-row">
-                    <div class="rating-pill">
-                        <span>Effectiveness</span>
-                        <div class="stars">★★★★★</div>
-                    </div>
-                    <div class="rating-pill">
-                        <span>Cost</span>
-                        <div class="stars cost">★★☆☆☆</div>
-                    </div>
-                </div>
-                <p style="font-size:0.83rem;color:var(--green-mid);font-weight:600;">✅ #1 Priority — High impact, low cost. Start here.</p>
-                <details>
-                    <summary>How to meet this requirement</summary>
-                    <div class="dropdown-content">
-                        Partner with <strong>Total Organics Recycling</strong>. Place dedicated green bins in the kitchen and dining area for all food waste. Schedule weekly pickups and train all kitchen staff on proper sorting.
-                    </div>
-                </details>
-                <div class="expert-contact">📞 Waste Management Expert: (314) ***-****</div>
-            </div>
-
-            <!-- LED -->
-            <div class="practice-card">
-                <h4>💡 100% LED Lighting</h4>
-                <p>Canned LED dining lights and LED tube kitchen lights.</p>
-                <div class="ratings-row">
-                    <div class="rating-pill">
-                        <span>Effectiveness</span>
-                        <div class="stars">★★★★☆</div>
-                    </div>
-                    <div class="rating-pill">
-                        <span>Cost</span>
-                        <div class="stars cost">★★★☆☆</div>
-                    </div>
-                </div>
-                <p style="font-size:0.83rem;color:var(--green-mid);font-weight:600;">✅ #2 Priority — Strong ROI through utility savings within 12–18 months.</p>
-                <details>
-                    <summary>How to meet this requirement</summary>
-                    <div class="dropdown-content">
-                        Replace all incandescent and fluorescent bulbs with Energy Star–rated LEDs. Install occupancy/motion sensors in restrooms and storage closets to eliminate standby waste.
-                    </div>
-                </details>
-                <div class="expert-contact">📞 Energy Efficiency Specialist: (314) ***-****</div>
-            </div>
-
-            <!-- No Styrofoam -->
-            <div class="practice-card">
-                <h4>🚫 No Styrofoam</h4>
-                <p>A total ban on Styrofoam to prevent chemical leaching.</p>
-                <div class="ratings-row">
-                    <div class="rating-pill">
-                        <span>Effectiveness</span>
-                        <div class="stars">★★★★☆</div>
-                    </div>
-                    <div class="rating-pill">
-                        <span>Cost</span>
-                        <div class="stars cost">★★☆☆☆</div>
-                    </div>
-                </div>
-                <p style="font-size:0.83rem;color:var(--green-mid);font-weight:600;">✅ #3 Priority — Easy swap with immediate environmental benefit.</p>
-                <details>
-                    <summary>How to meet this requirement</summary>
-                    <div class="dropdown-content">
-                        Conduct full inventory audit. Swap all styrofoam clamshells for <strong>bagasse (sugarcane fiber)</strong> or recycled cardboard containers. Inform suppliers in writing of the ban.
-                    </div>
-                </details>
-                <div class="expert-contact">📞 Packaging Expert: (314) ***-****</div>
-            </div>
-
-            <!-- Compostable Boxes -->
-            <div class="practice-card">
-                <h4>📦 Fully Compostable Boxes</h4>
-                <p>Zero-plastic takeout experience using paper and plant-fiber.</p>
-                <div class="ratings-row">
-                    <div class="rating-pill">
-                        <span>Effectiveness</span>
-                        <div class="stars">★★★★☆</div>
-                    </div>
-                    <div class="rating-pill">
-                        <span>Cost</span>
-                        <div class="stars cost">★★★★☆</div>
-                    </div>
-                </div>
-                <p style="font-size:0.83rem;color:var(--text-muted);font-weight:600;">⚠️ #4 — High impact but higher cost; phase in over 3–6 months.</p>
-                <details>
-                    <summary>How to meet this requirement</summary>
-                    <div class="dropdown-content">
-                        Source <strong>BPI-certified compostable containers</strong>. Train staff to pack all orders in recyclable paper bags without plastic wrappers. Verify certification labels on all packaging.
-                    </div>
-                </details>
-                <div class="expert-contact">📞 Supply Chain Expert: (314) ***-****</div>
-            </div>
-
-            <!-- Triple R -->
-            <div class="practice-card">
-                <h4>🔄 Reuse-Recycle-Reduce</h4>
-                <p>The "Triple R" philosophy for equipment and inventory.</p>
-                <div class="ratings-row">
-                    <div class="rating-pill">
-                        <span>Effectiveness</span>
-                        <div class="stars">★★★☆☆</div>
-                    </div>
-                    <div class="rating-pill">
-                        <span>Cost</span>
-                        <div class="stars cost">★☆☆☆☆</div>
-                    </div>
-                </div>
-                <p style="font-size:0.83rem;color:var(--green-mid);font-weight:600;">✅ #5 — Lowest cost of all. Savings compound over time.</p>
-                <details>
-                    <summary>How to meet this requirement</summary>
-                    <div class="dropdown-content">
-                        Upcycle bulk spice containers for storage. Purchase refurbished appliances when possible. Implement <strong>"Just-in-Time" ordering</strong> to minimize food waste from over-purchasing.
-                    </div>
-                </details>
-                <div class="expert-contact">📞 Operations Expert: (314) ***-****</div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ── 3. EMPLOYEE WELLNESS ── -->
-<section class="section alt">
-    <div class="wrap">
-        <div class="section-head animate">
-            <div class="section-label">E — Ethics (Internal)</div>
-            <h2 class="section-title">Employee Wellness Manual</h2>
-            <p class="section-desc">As part of the Ethics pillar, Ahimsa extends inward—to our team. Fair treatment, safety, and dignity are non-negotiable at every SEED-certified restaurant.</p>
-        </div>
-        <div class="wellness-grid stagger-children">
-            <div class="wellness-card">
-                <h4>📋 Employee Treatment Manual</h4>
-                <p>A formalized guidebook outlining rights, fair labor standards, and ethical operations for all staff.</p>
-                <details>
-                    <summary>Manual Highlights</summary>
-                    <div class="dropdown-content">The manual provides clear guidelines on fair wages, transparent scheduling, and conflict resolution based on non-violent communication (Ahimsa). All staff sign upon hiring.</div>
-                </details>
-                <div class="expert-contact">📞 HR & Ethics Consultant: (314) ***-****</div>
-            </div>
-            <div class="wellness-card">
-                <h4>🛡️ Regular Safety Checkups</h4>
-                <p>Ensuring a secure physical environment and mental well-being for all staff through scheduled reviews.</p>
-                <details>
-                    <summary>How we maintain safety</summary>
-                    <div class="dropdown-content">Scheduled quarterly kitchen safety audits and "well-being" check-ins to prevent worker overload and ensure physical safety standards are met at all stations.</div>
-                </details>
-                <div class="expert-contact">📞 Safety Officer: (314) ***-****</div>
-            </div>
-            <div class="wellness-card">
-                <h4>🎓 Fair Labor Training</h4>
-                <p>Comprehensive training for management on ethical leadership, transparent communication, and staff support.</p>
-                <details>
-                    <summary>Training Objectives</summary>
-                    <div class="dropdown-content">Managers are trained to prioritize employee safety and ethical operations—moving beyond "performative" CSR to real internal support. Recertification annually.</div>
-                </details>
-                <div class="expert-contact">📞 Training Specialist: (314) ***-****</div>
-            </div>
-            <div class="wellness-card">
-                <h4>⚖️ Transparent Scheduling</h4>
-                <p>Schedules posted at least 2 weeks in advance. No involuntary last-minute shift cancellations without compensation.</p>
-                <details>
-                    <summary>Policy Details</summary>
-                    <div class="dropdown-content">Managers use scheduling software to distribute hours equitably. Employees can swap shifts through an approved process. Overtime is compensated per Missouri labor law.</div>
-                </details>
-                <div class="expert-contact">📞 Operations Manager: (314) ***-****</div>
-            </div>
-            <div class="wellness-card">
-                <h4>💬 Conflict Resolution Process</h4>
-                <p>A clear, documented, non-punitive process for raising workplace concerns grounded in Ahimsa principles.</p>
-                <details>
-                    <summary>How it works</summary>
-                    <div class="dropdown-content">Any employee can submit a concern anonymously or in person. Within 5 business days, a manager review occurs. Resolutions are documented and reviewed quarterly for patterns.</div>
-                </details>
-                <div class="expert-contact">📞 HR Consultant: (314) ***-****</div>
-            </div>
-            <div class="wellness-card">
-                <h4>🌿 Wellness & Mental Health</h4>
-                <p>Recognizing the high-stress nature of food service and building in structured recovery and support systems.</p>
-                <details>
-                    <summary>Wellness Practices</summary>
-                    <div class="dropdown-content">Monthly team lunches, access to an Employee Assistance Program (EAP) for mental health resources, and a "no blame" culture for reporting errors to reduce kitchen stress.</div>
-                </details>
-                <div class="expert-contact">📞 Wellness Coordinator: (314) ***-****</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ── 4. ETHICAL SOURCING ── -->
-<section class="section">
-    <div class="wrap">
-        <div class="section-head animate">
-            <div class="section-label">E — Ethics</div>
-            <h2 class="section-title">Ethical Sourcing</h2>
-            <p class="section-desc">Commitment to transparency in the supply chain and fair labor practices. Here's our research on the top ethical brands and what it truly costs to source responsibly.</p>
-        </div>
-
-        <div class="ethics-intro stagger-children">
-            <div class="ethics-box">
-                <h4>🌿 How to Source Ethically</h4>
-                <ul>
-                    <li>Look for <strong>Fair Trade Certified</strong>, <strong>Rainforest Alliance</strong>, or <strong>B Corp</strong> labels on products.</li>
-                    <li>Vet all food and material suppliers for fair labor certifications before onboarding.</li>
-                    <li>Prioritize <strong>local, minority-owned</strong>, and transparent businesses that share SEED values.</li>
-                    <li>Request a <strong>Supplier Code of Conduct</strong> agreement from all vendors.</li>
-                    <li>Conduct annual audits of your top 5 suppliers.</li>
-                    <li>Utilize platforms like <strong>Good Food Purchasing Program</strong> or <strong>Sustainable Restaurant Association</strong> for verified vendor lists.</li>
-                </ul>
-            </div>
-            <div class="ethics-box">
-                <h4>📊 The Cost of Ethical Sourcing</h4>
-                <p>Ethical sourcing typically adds <strong>10–35% more</strong> to ingredient and supply costs. However, this is offset by:</p>
-                <ul>
-                    <li>Increased customer loyalty from conscious consumers</li>
-                    <li>Brand differentiation in a competitive market</li>
-                    <li>Reduced regulatory and reputational risk</li>
-                    <li>Alignment with growing Gen Z and Millennial spending values</li>
-                </ul>
-                <p style="margin-top:12px;font-size:0.88rem;color:var(--green-mid);font-weight:600;">Studies show 66% of consumers will pay more for sustainable brands (Nielsen, 2023).</p>
-            </div>
-        </div>
-
-        <div class="section-label" style="margin-bottom:20px;">Top Ethical Brands for Restaurants</div>
-        <div class="brands-grid stagger-children">
-            <div class="brand-card">
-                <div class="brand-badge">🌾 Produce</div>
-                <h4>Organic Valley</h4>
-                <p>Farmer-owned cooperative offering certified organic dairy, eggs, and produce. Strong animal welfare and worker equity standards.</p>
-                <div class="cost-premium">15–25% premium over conventional dairy</div>
-            </div>
-            <div class="brand-card">
-                <div class="brand-badge">☕ Beverages</div>
-                <h4>Equal Exchange</h4>
-                <p>100% Fair Trade coffee, tea, and cocoa. Worker-owned cooperative ensuring living wages for farmers in 30+ countries.</p>
-                <div class="cost-premium">20–30% premium over standard coffee</div>
-            </div>
-            <div class="brand-card">
-                <div class="brand-badge">🐟 Protein</div>
-                <h4>Wild Planet Foods</h4>
-                <p>MSC-certified sustainable seafood with full traceability. No added water, broth, or fillers—100% wild-caught.</p>
-                <div class="cost-premium">25–35% premium over conventional seafood</div>
-            </div>
-            <div class="brand-card">
-                <div class="brand-badge">🌱 Packaging</div>
-                <h4>World Centric</h4>
-                <p>BPI-certified compostable containers, bags, and serviceware. Carbon-neutral shipping and 25% of profits to global poverty relief.</p>
-                <div class="cost-premium">20–40% premium over plastic packaging</div>
-            </div>
-            <div class="brand-card">
-                <div class="brand-badge">🍃 Spices & Dry</div>
-                <h4>Frontier Co-op</h4>
-                <p>Fair Trade and organic spices, herbs, and baking ingredients. Non-GMO verified with transparent sourcing from small farms.</p>
-                <div class="cost-premium">10–20% premium over conventional spices</div>
-            </div>
-            <div class="brand-card">
-                <div class="brand-badge">🧹 Supplies</div>
-                <h4>Seventh Generation</h4>
-                <p>EPA Safer Choice certified cleaning products. Plant-based formulas with zero chlorine bleach—safe for food-service environments.</p>
-                <div class="cost-premium">15–25% premium over standard cleaners</div>
-            </div>
-        </div>
-
-        <table class="cost-comparison-table animate">
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Conventional Cost (est.)</th>
-                    <th>Ethical Cost (est.)</th>
-                    <th>Premium</th>
-                    <th>Business Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Dairy & Eggs</td><td>$180/mo</td><td>$220–$225/mo</td><td class="premium-tag">+22%</td><td class="worth-tag">High brand trust</td></tr>
-                <tr><td>Coffee & Tea</td><td>$90/mo</td><td>$110–$120/mo</td><td class="premium-tag">+25%</td><td class="worth-tag">Customer loyalty</td></tr>
-                <tr><td>Packaging</td><td>$150/mo</td><td>$195–$210/mo</td><td class="premium-tag">+33%</td><td class="worth-tag">Waste compliance</td></tr>
-                <tr><td>Spices & Dry Goods</td><td>$120/mo</td><td>$138–$144/mo</td><td class="premium-tag">+17%</td><td class="worth-tag">Low cost barrier</td></tr>
-                <tr><td>Cleaning Supplies</td><td>$60/mo</td><td>$72–$78/mo</td><td class="premium-tag">+23%</td><td class="worth-tag">Staff safety</td></tr>
-                <tr style="background: #e8f5e9 !important;"><td><strong>Total (est. monthly)</strong></td><td><strong>$600/mo</strong></td><td><strong>$735–$777/mo</strong></td><td class="premium-tag"><strong>+~25%</strong></td><td class="worth-tag"><strong>Certified SEED eligible</strong></td></tr>
-            </tbody>
-        </table>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-
-<!-- ── 5. COMMUNITY ENGAGEMENT ── -->
-<section class="section">
-    <div class="wrap">
-        <div class="section-head animate">
-            <div class="section-label">E — Engagement</div>
-            <h2 class="section-title">Community Engagement</h2>
-            <p class="section-desc">Sustainability isn't just internal—it's about building a movement. Meet the family behind BFJ and join us in the community.</p>
-        </div>
-
-        <div class="family-banner animate scale-in">
-            <div>
-                <h3>Meet Sid & Krupta Panchal</h3>
-                <p>Bombay Food Junkies is a family-run restaurant founded by <strong>Sid and Krupta Panchal</strong>—two passionate food lovers who left corporate careers to bring the bold, honest flavors of Mumbai street food to St. Louis. Their philosophy is simple: great food should do no harm—not to the people who eat it, the people who make it, or the planet that provides it. The SEED Program is their way of proving that small restaurants can lead the way in sustainable business.</p>
-            </div>
-            <div class="family-initials">S&K</div>
-        </div>
-
-        <div class="section-label" style="margin-bottom:20px;">Community Events</div>
-        <div class="events-grid stagger-children">
-            <div class="event-card">
-                <div class="event-icon">🌱</div>
-                <h4>Sustainable Kitchen Workshops</h4>
-                <p>Monthly hands-on sessions on zero-waste cooking, composting basics, and sustainable spice sourcing.</p>
-            </div>
-            <div class="event-card">
-                <div class="event-icon">🍛</div>
-                <h4>Community Cooking Demonstrations</h4>
-                <p>Live cooking events where Sid & Krupta teach Mumbai-inspired plant-forward recipes using local ingredients.</p>
-            </div>
-            <div class="event-card">
-                <div class="event-icon">🤝</div>
-                <h4>Restaurant Partner Meetups</h4>
-                <p>Quarterly roundtables for local restaurant owners exploring SEED certification together.</p>
-            </div>
-            <div class="event-card">
-                <div class="event-icon">🏫</div>
-                <h4>School & Youth Programs</h4>
-                <p>Partnering with STL schools to bring sustainability education and farm-to-table experiences to students.</p>
-            </div>
-        </div>
-
-        <div class="signup-block animate">
-            <h3>Join Our Community Events</h3>
-            <p>Sign up to stay informed about upcoming workshops, cooking demonstrations, and SEED community initiatives near you.</p>
-            <button class="btn-primary" onclick="document.getElementById('signupModal').classList.add('active')">Sign Up for Events →</button>
-        </div>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ── 6. DEVELOPMENT FEEDBACK ── -->
-<section class="section alt">
-    <div class="wrap">
-        <div class="section-head animate">
-            <div class="section-label">D — Development</div>
-            <h2 class="section-title">Share Your Feedback</h2>
-            <p class="section-desc">The SEED Program is in active development. Your input—whether you're a restaurant partner or a customer—directly shapes how we grow.</p>
-        </div>
-
-        <div class="feedback-grid stagger-children">
-            <div class="feedback-box" onclick="document.getElementById('restaurantModal').classList.add('active')">
-                <div class="dev-badge">🔧 Development Stage</div>
-                <div class="feedback-icon">🍽️</div>
-                <h3>Restaurant Feedback</h3>
-                <p>Are you a restaurant owner or manager participating in or considering the SEED Program? Share your experience, challenges, and ideas directly with our development team.</p>
-                <span class="btn-outline">Give Restaurant Feedback →</span>
-            </div>
-            <div class="feedback-box gold-border" onclick="document.getElementById('customerModal').classList.add('active')">
-                <div class="dev-badge">🔧 Development Stage</div>
-                <div class="feedback-icon">⭐</div>
-                <h3>Customer Thoughts</h3>
-                <p>Have you dined at a SEED-participating restaurant? We want to know what you noticed, what you loved, and what you think could be better about the sustainability initiative.</p>
-                <span class="btn-outline gold">Share Customer Thoughts →</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ── 7. TIMELINE ── -->
-<section class="section">
-    <div class="wrap">
-        <div class="section-head animate">
-            <a id="back"></a>
-            <div class="section-label">Implementation</div>
-            <h2 class="section-title">Program Timeline</h2>
-            <p class="section-desc">A 24-month phased rollout designed to build sustainable systems without disrupting daily operations.</p>
-        </div>
-        <div class="visual-timeline stagger-children">
-            <div class="timeline-phase p1">
-                <a href="#kpi"><div class="phase-header">PHASE 1: PLATFORM & RESEARCH<br>(Months 1–4)</div></a>
-                <div class="phase-content">
-                    <strong>Objectives:</strong>
-                    <ul>
-                        <li>Launch social media advertising to build awareness.</li>
-                        <li>Conduct sourcing research on sustainable suppliers.</li>
-                        <li>Host initial community events.</li>
-                        <li>Begin drafting the Employee Treatment Manual.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="timeline-phase p2">
-                <div class="phase-header">PHASE 2: SYSTEM DEVELOPMENT<br>(Months 5–9)</div>
-                <div class="phase-content">
-                    <strong>Objectives:</strong>
-                    <ul>
-                        <li>Finalize and implement the Employee Treatment Manual.</li>
-                        <li>Introduce ethical sourcing into operations.</li>
-                        <li>Develop internal sustainability checklist.</li>
-                        <li>Continue expanding community engagement.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="timeline-phase p3">
-                <div class="phase-header">PHASE 3: IMPLEMENTATION<br>(Months 10–18)</div>
-                <div class="phase-content">
-                    <strong>Objectives:</strong>
-                    <ul>
-                        <li>Roll out composting routes and waste systems.</li>
-                        <li>Host community cooking demonstrations.</li>
-                        <li>Launch sustainable community events.</li>
-                        <li>Begin collecting customer feedback.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="timeline-phase p4">
-                <div class="phase-header">PHASE 4: FEEDBACK & EXPANSION<br>(Months 19–24)</div>
-                <div class="phase-content">
-                    <strong>Objectives:</strong>
-                    <ul>
-                        <li>Conduct employee treatment policy evaluations.</li>
-                        <li>Gather and analyze restaurant feedback.</li>
-                        <li>Implement improvements based on data.</li>
-                        <li>Expand sustainability initiatives long-term.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ── 8. FINANCIAL ADVANTAGE ── -->
-<section class="section dark">
-    <div class="wrap">
-        <div class="section-head animate">
-            <div class="section-label light">Business Case</div>
-            <h2 class="section-title light">The Financial Advantage</h2>
-            <p style="color:#a5d6a7;max-width:650px;font-size:1.05rem;">The SEED Framework is designed to be affordable to implement. Most requirements focus on documentation, staff training, and low-cost swaps—with ROI realized through brand differentiation and customer retention.</p>
-        </div>
-        <div class="financial-grid stagger-children">
-            <div class="fin-card">
-                <h4>Avg. Implementation Cost</h4>
-                <div class="big">~$2,400</div>
-                <p>One-time setup across all 5 sustainability requirements for a typical small restaurant.</p>
-            </div>
-            <div class="fin-card">
-                <h4>Monthly Operational Savings</h4>
-                <div class="big">~$300</div>
-                <p>Estimated monthly savings from LED upgrades, reduced waste disposal fees, and optimized ordering.</p>
-            </div>
-            <div class="fin-card">
-                <h4>Estimated ROI Timeline</h4>
-                <div class="big">8 Months</div>
-                <p>Full break-even on implementation costs through combined utility savings and customer growth.</p>
-            </div>
-            <div class="fin-card">
-                <h4>Customer Retention Lift</h4>
-                <div class="big">+18%</div>
-                <p>Projected increase in repeat visits from sustainability-conscious diners (based on industry research).</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ── 9. KPIs ── -->
- <a id="kpi"></a>
-<section class="section alt">
-    <div class="wrap">
-        <div class="section-head animate">
-            <div class="section-label">Measuring Success</div>
-            <a href="#back"><h2 class="section-title">Strategic KPIs & Metrics</h2></a>
-            <p class="section-desc">Comparing current St. Louis industry averages to SEED Program performance targets.</p>
-        </div>
-        <div class="kpi-grid stagger-children">
-            <div class="kpi-box">
-                <h4>Waste Diversion Rate (WDR)</h4>
-                <div class="kpi-compare">
-                    <span class="kpi-avg">15% <small style="font-size:0.75rem">(City Avg)</small></span>
-                    <span class="kpi-arrow">→</span>
-                    <span class="kpi-value">75%</span>
-                </div>
-                <p class="kpi-desc">Diverting 5× more waste than the regional average through the Total Organics Recycling partnership.</p>
-            </div>
-            <div class="kpi-box">
-                <h4>Sustainable Sourcing Rate (SSR)</h4>
-                <div class="kpi-compare">
-                    <span class="kpi-avg">10–20% <small style="font-size:0.75rem">(Est. Avg)</small></span>
-                    <span class="kpi-arrow">→</span>
-                    <span class="kpi-value">60%</span>
-                </div>
-                <p class="kpi-desc">Prioritizing local vendors and certified ethical suppliers to reduce food miles and support the STL economy.</p>
-            </div>
-            <div class="kpi-box">
-                <h4>SEED Framework Adoption</h4>
-                <div class="kpi-compare">
-                    <span class="kpi-avg">0% <small style="font-size:0.75rem">(Current)</small></span>
-                    <span class="kpi-arrow">→</span>
-                    <span class="kpi-value">50%</span>
-                </div>
-                <p class="kpi-desc">Full integration of ethical manuals and employee sustainability training across all SEED alliance partners.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ── 10. UNIQUE ACTIONS ── -->
-<section class="section">
-    <div class="wrap">
-        <div class="section-head animate">
-            <div class="section-label">BFJ Originals</div>
-            <h2 class="section-title">Unique Actions & Creative Reuse</h2>
-            <p class="section-desc">What sets Bombay Food Junkies apart—tangible, visible examples of circular design built right into the restaurant.</p>
-        </div>
-        <div class="unique-section animate">
-            <div class="unique-grid stagger-children">
-                <div class="unique-card">
-                    <h4>🪑 Reclaimed & Refinished Tables</h4>
-                    <p>Old tables given new life with acrylic resin and vibrant colors—durable, distinctive, and fully circular in their second life.</p>
-                </div>
-                <div class="unique-card">
-                    <h4>🪵 Reclaimed Pallet Wood Wall</h4>
-                    <p>Hand-painted and sanded reclaimed pallet wood feature wall behind the ordering counter—a living statement of the reduce-reuse philosophy.</p>
-                </div>
-                <div class="unique-card">
-                    <h4>🟩 Reclaimed Laminate Wall Panels</h4>
-                    <p>Upcycled school gym flooring sourced from REFAB to create signature green panels that tell a story of transformation.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ── FOOTER ── -->
-<footer>
-    <strong>Bombay Food Junkies SEED Initiative</strong><br>
-    <span>Making Our World A Better Place — One Meal At A Time</span><br>
-    <span style="font-size:0.8rem;opacity:0.6;margin-top:8px;display:block;">© 2026 Bombay Food Junkies | St. Louis, MO</span>
-</footer>
-
-<!-- ── MODALS ── -->
-
-<!-- Event Signup -->
-<div class="modal-overlay" id="signupModal">
-    <div class="modal">
-        <button class="modal-close" onclick="document.getElementById('signupModal').classList.remove('active')">✕</button>
-        <h3>Sign Up for Community Events</h3>
-        <p>Stay in the loop on upcoming workshops, cooking demos, and SEED community nights.</p>
-        <label>Full Name</label>
-        <input type="text" placeholder="Your name">
-        <label>Email Address</label>
-        <input type="email" placeholder="you@email.com">
-        <label>I'm interested in...</label>
-        <select>
-            <option>Cooking Demonstrations</option>
-            <option>Sustainability Workshops</option>
-            <option>Restaurant Partner Meetups</option>
-            <option>School & Youth Programs</option>
-            <option>All of the above!</option>
-        </select>
-        <div class="modal-actions">
-            <button class="btn-primary" onclick="alert('Thank you! We\'ll be in touch soon.'); document.getElementById('signupModal').classList.remove('active')">Sign Me Up →</button>
-        </div>
-    </div>
+<div class="wrap">
+<div class="section-head animate">
+<div class="section-label">Our Foundation</div>
+<h2 class="section-title">The SEED Framework</h2>
+<p class="section-desc">A structured, ethical, and scalable sustainability model.</p>
 </div>
-
-<!-- Restaurant Feedback -->
-<div class="modal-overlay" id="restaurantModal">
-    <div class="modal">
-        <button class="modal-close" onclick="document.getElementById('restaurantModal').classList.remove('active')">✕</button>
-        <h3>Restaurant Feedback</h3>
-        <p>Your experience as a restaurant partner helps us build a better SEED Program.</p>
-        <label>Restaurant Name</label>
-        <input type="text" placeholder="Your restaurant's name">
-        <label>Contact Name</label>
-        <input type="text" placeholder="Your name">
-        <label>What's working well?</label>
-        <textarea placeholder="Share your positive experiences with the SEED requirements..."></textarea>
-        <label>What could be improved?</label>
-        <textarea placeholder="What challenges have you encountered? What would help?"></textarea>
-        <div class="modal-actions">
-            <button class="btn-primary" onclick="alert('Thank you for your feedback! This helps us improve the program.'); document.getElementById('restaurantModal').classList.remove('active')">Submit Feedback →</button>
-        </div>
-    </div>
 </div>
-
-<!-- Customer Feedback -->
-<div class="modal-overlay" id="customerModal">
-    <div class="modal">
-        <button class="modal-close" onclick="document.getElementById('customerModal').classList.remove('active')">✕</button>
-        <h3>Customer Thoughts</h3>
-        <p>Dined at a SEED restaurant? Your perspective matters to us.</p>
-        <label>Which restaurant did you visit?</label>
-        <input type="text" placeholder="Restaurant name">
-        <label>What did you notice about their sustainability efforts?</label>
-        <textarea placeholder="Packaging, composting bins, the menu, staff knowledge..."></textarea>
-        <label>Would sustainable practices influence where you eat?</label>
-        <select>
-            <option>Yes, definitely</option>
-            <option>Somewhat</option>
-            <option>Not really</option>
-            <option>I hadn't thought about it before</option>
-        </select>
-        <label>Any other thoughts?</label>
-        <textarea placeholder="Anything else you'd like to share..."></textarea>
-        <div class="modal-actions">
-            <button class="btn-primary" style="background:var(--gold);color:#1a1a1a;" onclick="alert('Thank you! Customer voices shape the SEED Program.'); document.getElementById('customerModal').classList.remove('active')">Share My Thoughts →</button>
-        </div>
-    </div>
-</div>
+</section>
 
 <script>
-    // ── Close modals on overlay click ──
-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
-        overlay.addEventListener('click', function(e) {
-            if (e.target === this) this.classList.remove('active');
-        });
-    });
+const progressBar = document.getElementById('progress-bar');
 
-    // ── Hero entrance ──
-    window.addEventListener('load', () => {
-        document.querySelector('.hero').classList.add('hero-loaded');
-    });
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / height) * 100;
+    progressBar.style.width = progress + '%';
+});
 
-    // ── Scroll-triggered animations ──
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px'
-    });
+window.addEventListener('load', () => {
+    document.querySelector('.hero').classList.add('hero-loaded');
+});
 
-    // Observe all .animate elements
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+document.querySelectorAll('.stagger-children').forEach(el => observer.observe(el));
+
+function resetAnimations() {
+    document.querySelectorAll('.animate, .stagger-children').forEach(el => {
+        el.classList.remove('visible');
+    });
+}
+
+function reobserveAnimations() {
     document.querySelectorAll('.animate').forEach(el => observer.observe(el));
-
-    // Observe all .stagger-children grids
     document.querySelectorAll('.stagger-children').forEach(el => observer.observe(el));
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (!target) return;
+        e.preventDefault();
+        resetAnimations();
+        target.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+            reobserveAnimations();
+        }, 600);
+    });
+});
 </script>
 
 </body>
